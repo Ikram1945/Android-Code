@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Editor proyek: drawer kiri (daftar file) + strip tab atas + sora CodeEditor tengah
+  + panel konsol build bawah (LOG/PROBLEM). Pola UX ditiru dari CodeAssist
+  (FileNavigator + TabsStrip + EditorCenter), tapi berbasis View/XML + sora-editor,
+  bukan Compose custom.
+-->
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ===================== konten utama ===================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?android:attr/colorBackground">
+
+        <!-- header: tombol drawer + nama proyek + aksi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="6dp">
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                style="@style/IconButton.SunnyGlow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Daftar file"
+                android:src="@drawable/ic_file_list"
+                android:tint="?android:attr/textColorPrimary" />
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                style="@style/IconButton.SunnyGlow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Kembali"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/txtProjName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="proyek"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnConfig"
+                style="@style/IconButton.SunnyGlow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Pengaturan editor &amp; APK"
+                android:src="@drawable/ic_settings"
+                android:tint="?android:attr/textColorPrimary" />
+
+            <ImageButton
+                android:id="@+id/btnLibs"
+                style="@style/IconButton.SunnyGlow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Library"
+                android:src="@drawable/ic_library"
+                android:tint="?android:attr/textColorPrimary" />
+
+
+            <ImageButton
+                android:id="@+id/btnToggleConsole"
+                style="@style/IconButton.SunnyGlow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Buka/tutup log"
+                android:src="@drawable/ic_chevron_down"
+                android:tint="?android:attr/textColorPrimary" />
+
+            <ImageButton
+                android:id="@+id/btnSave"
+                style="@style/IconButton.SunnyGlow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Simpan"
+                android:src="@drawable/ic_save"
+                android:tint="?android:attr/textColorPrimary" />
+
+            <ImageButton
+                android:id="@+id/btnBuild"
+                style="@style/IconButton.SunnyGlow.Filled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Build"
+                android:src="@drawable/ic_build_play"
+                android:tint="@android:color/white" />
+        </LinearLayout>
+
+        <!-- strip tab file terbuka (horizontal, scroll) -->
+        <HorizontalScrollView
+            android:id="@+id/tabScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/surface_container"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/tabStrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp" />
+        </HorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/outline"
+            android:alpha="0.3" />
+
+        <!-- editor sora (isi utama, tengah) -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7">
+
+            <io.github.rosemoe.sora.widget.CodeEditor
+                android:id="@+id/editor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!-- placeholder saat tak ada file dibuka -->
+            <TextView
+                android:id="@+id/txtEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Buka file dari daftar (tombol kiri atas)"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <!-- panel konsol build bawah: seluruh panel bisa ditutup/buka dari tombol toolbar -->
+        <LinearLayout
+            android:id="@+id/consolePanel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:background="@color/surface_container_low">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@color/surface_container"
+                android:paddingStart="12dp"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="8dp"
+                    android:text="Log build"
+                    android:textColor="@color/on_surface"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btnCopy"
+                    style="@style/IconButton.SunnyGlow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Salin log"
+                    android:src="@drawable/ic_copy"
+                    android:tint="@color/on_surface_variant"
+                    android:backgroundTint="@android:color/transparent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/consoleBody"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/buildProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:indeterminate="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/tabLog"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="LOG"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:textColor="@color/primary" />
+
+                    <TextView
+                        android:id="@+id/tabProblem"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="PROBLEM"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:textColor="@color/on_surface_variant" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/outline"
+                    android:alpha="0.3" />
+
+                <ScrollView
+                    android:id="@+id/scrollConsole"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/txtConsole"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:padding="10dp"
+                        android:textColor="@color/on_surface"
+                        android:textIsSelectable="true"
+                        android:textSize="12sp" />
+                </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ===================== drawer: daftar file ===================== -->
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        android:background="@color/surface_container"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/drawerTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="FILE"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnFolder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Folder browser"
+                android:padding="6dp"
+                android:src="@drawable/ic_folder" />
+
+            <ImageButton
+                android:id="@+id/btnProjSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Pengaturan proyek"
+                android:padding="6dp"
+                android:src="@drawable/ic_settings" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listFiles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="1dp"
+            android:paddingBottom="16dp" />
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

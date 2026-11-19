@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- header: judul + subtitle kiri, tombol kanan -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtAppName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="IDE Android on-device — build APK dari proyek Java &amp; Kotlin"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/btnSettings"
+                    style="@style/IconButton.SunnyGlow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Pengaturan"
+                    android:src="@drawable/ic_settings"
+                    android:tint="?android:attr/textColorPrimary" />
+
+                <ImageButton
+                    android:id="@+id/btnLibrary"
+                    style="@style/IconButton.SunnyGlow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Library"
+                    android:src="@drawable/ic_library"
+                    android:tint="?android:attr/textColorPrimary" />
+
+                <ImageButton
+                    android:id="@+id/btnAbout"
+                    style="@style/IconButton.SunnyGlow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Tentang"
+                    android:src="@drawable/ic_about"
+                    android:tint="?android:attr/textColorPrimary" />
+
+                <Button
+                    android:id="@+id/btnCreateTop"
+                    style="@style/Button.SunnyGlow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+ Buat" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- daftar proyek (kartu) -->
+        <ListView
+            android:id="@+id/listProjects"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"
+            android:paddingBottom="96dp"
+            android:scrollbars="none"
+            tools:listitem="@layout/item_project" />
+
+        <TextView
+            android:id="@+id/txtEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:padding="24dp"
+            android:text="Belum ada proyek.\nTekan tombol + Buat untuk mulai."
+            android:textColor="?android:attr/textColorSecondary"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txtTagline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="18dp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+    <!-- FAB buat proyek -->
+    <Button
+        android:id="@+id/fabCreate"
+        style="@style/Fab.SunnyGlow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="+" />
+</FrameLayout>

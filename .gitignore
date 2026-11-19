@@ -1,0 +1,7 @@
+.platform/
+backup-assets/
+*.bak
+*.bak-*
+*.orig
+*.dex
+*.zip
