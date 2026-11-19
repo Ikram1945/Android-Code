@@ -1,0 +1,3 @@
+#v2
+0
+/storage/emulated/0/Android/data/com.ikram.code/files/codeassist/projects/android-code/app/src/main/java/com/ikram/androidcode/MainActivity.java	0	0	text

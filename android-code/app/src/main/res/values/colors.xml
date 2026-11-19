@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sunny Glow palette (dari tema AndroidIDE/ACS) -->
+    <color name="primary">#6F5A4A</color>
+    <color name="primary_container">#F9DDC9</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_primary_container">#27190C</color>
+    <color name="secondary">#6A5C51</color>
+    <color name="secondary_container">#F3DFD1</color>
+    <color name="on_secondary_container">#231A11</color>
+    <color name="tertiary">#735943</color>
+    <color name="tertiary_container">#FFDCC1</color>
+    <color name="error">#B3261E</color>
+    <color name="background">#FFFBFF</color>
+    <color name="on_background">#1E1B19</color>
+    <color name="surface">#FFFBFF</color>
+    <color name="surface_variant">#E8E1DD</color>
+    <color name="on_surface">#1E1B19</color>
+    <color name="on_surface_variant">#4A4644</color>
+    <color name="outline">#7A7572</color>
+    <color name="surface_container_low">#F7EFEA</color>
+    <color name="surface_container">#F2E9E4</color>
+    <!-- dark -->
+    <color name="primary_dark">#DCC2AE</color>
+    <color name="primary_container_dark">#564334</color>
+    <color name="on_primary_dark">#3D2D1F</color>
+    <color name="on_primary_container_dark">#F9DDC9</color>
+    <color name="secondary_dark">#D6C3B6</color>
+    <color name="secondary_container_dark">#51443A</color>
+    <color name="on_secondary_container_dark">#F3DFD1</color>
+    <color name="background_dark">#1E1B19</color>
+    <color name="on_background_dark">#E8E1DD</color>
+    <color name="surface_dark">#1E1B19</color>
+    <color name="surface_variant_dark">#4A4644</color>
+    <color name="on_surface_dark">#E8E1DD</color>
+    <color name="on_surface_variant_dark">#CCC5C2</color>
+    <color name="surface_container_low_dark">#262220</color>
+    <color name="surface_container_dark">#2B2725</color>
+    <color name="ic_launcher_background">#000000</color>
+
+    <!-- ================= Blue Wave palette (dari AndroidIDE-R theme_blue_wave.xml) ================= -->
+    <!-- light -->
+    <color name="bw_primary">#FF485D92</color>
+    <color name="bw_on_primary">#FFFFFFFF</color>
+    <color name="bw_secondary">#FF585E71</color>
+    <color name="bw_on_secondary">#FFFFFFFF</color>
+    <color name="bw_surface">#FFFEFBFF</color>
+    <color name="bw_surface_variant">#FFE1E2EC</color>
+    <color name="bw_on_surface">#FF1B1B1F</color>
+    <color name="bw_on_surface_variant">#FF44464F</color>
+    <color name="bw_outline">#FF74767F</color>
+    <color name="bw_error">#FFB3261E</color>
+    <!-- dark -->
+    <color name="bw_primary_dark">#FFB1C5FF</color>
+    <color name="bw_on_primary_dark">#FF172E60</color>
+    <color name="bw_secondary_dark">#FFC0C6DD</color>
+    <color name="bw_on_secondary_dark">#FF2A3042</color>
+    <color name="bw_surface_dark">#FF1B1B1F</color>
+    <color name="bw_surface_variant_dark">#FF44464F</color>
+    <color name="bw_on_surface_dark">#FFE4E2E6</color>
+    <color name="bw_on_surface_variant_dark">#FFC5C6D0</color>
+    <color name="bw_outline_dark">#FF8F9099</color>
+    <color name="bw_error_dark">#FFF2B8B5</color>
+</resources>

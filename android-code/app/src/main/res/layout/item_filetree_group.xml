@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- folder row: chevron/spinner + icon folder + nama (indent per-level dari kode) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <FrameLayout
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp">
+
+        <ImageView android:id="@+id/treeChevron"
+            android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_chevron_right"
+            android:layout_gravity="center" />
+
+        <ProgressBar android:id="@+id/treeLoading"
+            android:layout_width="16dp" android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <ImageView android:id="@+id/treeIcon"
+        android:layout_width="22dp" android:layout_height="22dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_folder"
+        android:tint="?attr/colorPrimary" />
+
+    <TextView android:id="@+id/treeName"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:maxLines="1" android:ellipsize="end"
+        android:textColor="?android:attr/textColorPrimary" />
+</LinearLayout>

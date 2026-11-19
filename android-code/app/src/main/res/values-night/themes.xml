@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Mode malam: Theme.App aktif = varian Dark. Karena palet dipilih runtime
+         lewat setTheme (Theme_App vs Theme_App_BlueWave), di sini cukup parent
+         ke Dark masing2 biar ?attr ikut mode malam saat resource night aktif. -->
+    <style name="Theme.App" parent="Theme.App.Dark">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+    <style name="Theme.App.BlueWave" parent="Theme.App.BlueWave.Dark">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

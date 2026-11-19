@@ -1,0 +1,27 @@
+wing: android-code
+
+rooms:
+  - name: build
+    patterns:
+      - "app/src/main/java/com/ikram/apkbuild/build/**"
+    keywords: [build, pipeline, stage, dex, r8, resources]
+  - name: deps
+    patterns:
+      - "app/src/main/java/com/ikram/apkbuild/deps/**"
+    keywords: [maven, resolve, dependency, library]
+  - name: toolchain
+    patterns:
+      - "app/src/main/java/com/ikram/apkbuild/toolchain/**"
+    keywords: [jvm, toolchain, java, compiler]
+  - name: ui
+    patterns:
+      - "app/src/main/java/com/ikram/apkbuild/*Activity.java"
+      - "app/src/main/java/com/ikram/apkbuild/adapter/**"
+      - "app/src/main/res/**"
+    keywords: [activity, adapter, layout, view]
+  - name: docs
+    patterns:
+      - "README.md"
+      - "app/module.toml"
+      - "app/proguard-rules.pro"
+    keywords: [config, module, proguard, docs]

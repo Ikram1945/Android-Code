@@ -1546,3 +1546,68 @@ Backup:
   ART). Cek sintaks hanya: brace seimbang relatif terhadap backup. **Build not verified.**
 - Uji: edit 1 nilai string → Build → log harus `compileKotlin`/`compileJava` **UPTODATE**;
   tambah 1 `@+id` → Build → keduanya **RUNNING**.
+
+---
+
+## Catatan Sesi (2026-11-19) — Optimasi: fingerprint stage & hash library
+
+Backup: `build/BuildPipeline.java.bak-opt-stage-20261119-135055`.
+
+Latar: build incremental **Nx Music 2** (log konsol nyata, `dexMode=auto`, 71 library)
+`[time] TOTAL: 27716 ms`, dengan hampir semua kerja di-skip:
+
+| tahap | ms | catatan |
+|---|---|---|
+| compileKotlin | 7529 | 1 dari 33 file berubah (6941 ms) |
+| dex | 6194 | 8 bucket `unchanged, reuse`; `dex-library: 1949 ms (71)` |
+| compileJava | 5781 | **ECJ skip** ("tidak ada file berubah"), hanya 70 ms kerja nyata |
+| resource | 2914 | link reuse |
+| package | 2171 | up-to-date (skip) |
+| sign | 119 | — |
+
+Biangnya bukan compiler, tapi **fingerprint** (`fp[...]` + `fp-post[...]`):
+
+- `fp[compileJava]` 2668 ms + `fp-post[compileJava]` 1591 ms = **4259 ms** menghitung hash 582
+  `.class` (23 MB) padahal ECJ tidak jalan dan tak ada yang menulis `classes/`.
+- `dex-library` 1949 ms padahal SETIAP barisnya `[lib-dex] cache` — `hashOf()` membaca ulang
+  ke-71 jar (~30 MB) tiap build.
+- Total hash murni ≈ 6.3 s dari 27.7 s (23%), mayoritas untuk membuktikan "tidak ada perubahan".
+
+### Perubahan (semua di `BuildPipeline.java`)
+
+1. **`outputFp` stage compileJava tidak menghitung `.class` bila dirnya tak tersentuh.**
+   Field baru `stEcjRan` (di-set di 3 jalur `runEcj`) dan `artifactsTouched` (di-set bila ada
+   penulis `classes/` di luar ECJ: ekstraksi R.class, hapus `.class` berubah, hapus `.class`
+   yatim). Bila keduanya false → `readStageOutFp("compileJava")` membaca baris ke-2
+   `.stage-cache/compileJava.fp` (satu file kecil) dan mengembalikannya.
+   Hemat ~4.0 s.
+
+2. **Kunci cache libdex pakai memo `size:mtime` (`libHash`), bukan `hashOf` segar.**
+   Jar library ditulis SEKALI oleh `MavenResolver` di `filesDir/libraries` lalu tak pernah
+   ditulis ulang in-place — asumsi memo valid di sini. Hemat ~1.9 s.
+   Log baru `[time] lib-dex hash: <ms> (<n>)` untuk memantau.
+
+3. Kedua memo dibersihkan di awal `build()` (`memoOutFp.clear()`, flag di-reset).
+
+### Kenapa ini TIDAK melanggar ATURAN 2026-09-11 / 2026-09-18
+
+- Hash `.class` **tetap** `hashOf` segar (tidak pernah dimemo). Yang dipangkas hanya
+  **perhitungan atas direktori yang terbukti tidak ditulis** build ini — bukan memo basi.
+- `artifactsTouched` menutup SEMUA penulis `classes/` di luar ECJ. Kalau ada penulis baru di
+  masa depan, ia WAJIB men-set flag itu, atau cache bisa salah-skip (APK basi → FC).
+- Catatan `.stage-cache` tidak ada (build pertama / cache dibuang) → `readStageOutFp` null →
+  hitung seperti biasa. Tidak pernah salah-skip.
+- Sumber proyek, `res/`, `gen/`, `R.jar`, `resources.ap_`, `dex/` tetap hash isi segar.
+
+### Verifikasi
+
+- **Compile: TIDAK diverifikasi** — tidak ada `javac` di device ini (`which javac` kosong;
+  JDK di lingkungan proot gagal `libjvm.so`). Cek sintaks hanya brace/paren balance:
+  `{}` 587/587, `()` 4318/4318 (baseline 578/578, 4262/4262 — delta dari kode baru).
+- **Belum diukur di perangkat.** Perkiraan 27.7 s → ~22 s.
+- Cara uji: build ulang Nx Music 2 tanpa clean, cek log:
+  - `[time] fp[compileJava]` tetap ada tapi `fp-post[compileJava]` harus **~0 ms** dan
+    **tidak ada lagi** baris `fp-detail[compileJava.out]` → patch 1 aktif.
+  - `[time] lib-dex hash` muncul dengan angka kecil setelah build pertama → patch 2 aktif.
+- Regresi yang harus dicek setelah patch 1: edit 1 `@+id` di layout → build → `compileJava`
+  **RUNNING** dan APK memuat id baru (bukan UPTODATE). Ini jalur `artifactsTouched`.

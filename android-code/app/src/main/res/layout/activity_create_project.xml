@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <!-- header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="4dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp">
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/IconButton.SunnyGlow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="‹" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buat Proyek Baru"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/bg_panel"
+            android:layout_margin="12dp">
+
+            <TextView style="@style/label" android:text="Nama Proyek"/>
+            <EditText android:id="@+id/inName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="myapp"/>
+
+            <TextView style="@style/label" android:text="Package"/>
+            <EditText android:id="@+id/inPackage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="com.ikram.myapp"
+                android:text="com.ikram.myapp"/>
+
+            <TextView style="@style/label" android:text="Template"/>
+            <RadioGroup android:id="@+id/rgTemplate"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/radioTplActivity"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Proyek Activity" android:checked="true"/>
+                <RadioButton android:id="@+id/radioTplMaterial"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Material You (M3 + FAB)"/>
+                <RadioButton android:id="@+id/radioTplCompose"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Compose (Kotlin + M3)"/>
+            </RadioGroup>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:layout_marginEnd="6dp">
+                    <TextView style="@style/label" android:text="versionName"/>
+                    <EditText android:id="@+id/inVerName"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="1.0"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView style="@style/label" android:text="versionCode"/>
+                    <EditText android:id="@+id/inVerCode"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:inputType="number" android:text="1"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="horizontal">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:layout_marginEnd="6dp">
+                    <TextView style="@style/label" android:text="compileSdk"/>
+                    <EditText android:id="@+id/inCompileSdk"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:inputType="number" android:text="36"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:layout_marginEnd="6dp">
+                    <TextView style="@style/label" android:text="minSdk"/>
+                    <EditText android:id="@+id/inMinSdk"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:inputType="number" android:text="26"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView style="@style/label" android:text="targetSdk"/>
+                    <EditText android:id="@+id/inTargetSdk"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:inputType="number" android:text="34"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/label" android:text="Versi Java"/>
+            <RadioGroup android:id="@+id/rgJava"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/radio17"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Java 17" android:checked="true"/>
+                <RadioButton android:id="@+id/radio21"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Java 21"/>
+            </RadioGroup>
+
+            <TextView style="@style/label" android:text="Eksekusi Compiler Java"/>
+            <RadioGroup android:id="@+id/rgJavaExec"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/radioJavaInproc"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="In-Process" android:checked="true"/>
+                <RadioButton android:id="@+id/radioJavaFork"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Fork (dalvikvm)"/>
+            </RadioGroup>
+
+            <TextView style="@style/label" android:text="Eksekusi Compiler Kotlin"/>
+            <RadioGroup android:id="@+id/rgKotlinExec"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/radioKotlinInproc"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="In-Process" android:checked="true"/>
+                <RadioButton android:id="@+id/radioKotlinFork"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Fork (dalvikvm)"/>
+            </RadioGroup>
+
+            <TextView style="@style/label" android:text="Eksekusi Compiler Kotlin (Worker)"/>
+            <RadioGroup android:id="@+id/rgKotlinWorker"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/radioKotlinInprocW"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="In-Process" android:checked="true"/>
+                <RadioButton android:id="@+id/radioKotlinWorker"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Fork Worker"/>
+            </RadioGroup>
+
+            <TextView style="@style/label" android:text="Heap Worker Kotlin"/>
+            <TextView android:id="@+id/txtKotlinHeapVal"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="0 MB (auto)" android:textColor="?android:attr/textColorSecondary"/>
+            <SeekBar android:id="@+id/sbKotlinHeap"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:max="4" android:progress="0"/>
+
+            <TextView style="@style/label" android:text="Max Fork Merge D8"/>
+            <TextView android:id="@+id/txtDexForksVal"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="0 (auto, max 3)" android:textColor="?android:attr/textColorSecondary"/>
+            <SeekBar android:id="@+id/sbDexForks"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:max="8" android:progress="0"/>
+
+            <TextView style="@style/label" android:text="Library (dependency)"/>
+            <Button android:id="@+id/btnAddLib"
+                style="@style/Button.Outline.SunnyGlow"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="+ Tambah Library"/>
+            <TextView android:id="@+id/txtLibStatus"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Belum ada library"
+                android:textColor="?android:attr/textColorSecondary"
+                android:padding="4dp"/>
+
+            <Button android:id="@+id/btnCreate"
+                style="@style/Button.SunnyGlow"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Buat &amp; Buka Proyek"
+                android:layout_marginTop="12dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,32 @@
+version = 2
+
+[module]
+type = "android-app"
+name = "app"
+languageLevel = "JAVA_21"
+output = "build/classes"
+
+[sourceSets.main]
+scope = "IMPLEMENTATION"
+java = ["src/main/java"]
+res = ["src/main/res"]
+
+[dependencies]
+implementation = ["androidx.appcompat:appcompat:1.7.0", "com.google.android.material:material:1.12.0", "androidx.annotation:annotation:1.9.1", "org.ow2.asm:asm:9.7", "org.jetbrains.kotlin:kotlin-metadata-jvm:2.4.0", "io.github.rosemoe:editor:0.24.6", "io.github.rosemoe:language-java:0.24.6", "io.github.rosemoe:language-textmate:0.24.6", "androidx.databinding:viewbinding:8.7.3"]
+
+[android]
+namespace = "com.ikram.apkbuild"
+compileSdk = 36
+minSdk = 26
+targetSdk = 34
+manifest = "src/main/AndroidManifest.xml"
+versionCode = 1
+versionName = "1.0"
+isApplication = true
+manifestPlaceholders = []
+buildTypes = [{ name = "debug", debuggable = true, minifyEnabled = false, shrinkResources = false }, { name = "release", debuggable = false, minifyEnabled = false, shrinkResources = false, proguardFiles = ["proguard-android-optimize.txt", "proguard-rules.pro"] }]
+viewBinding = true
+
+[build]
+dexMode = "auto"
+parallelDex = "false"
